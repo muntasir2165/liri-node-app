@@ -11,11 +11,11 @@ This app was developed as part of the first Node.js homework assignment at the U
 1) Either download the zipped project from GitHub or clone the repo into your local machine.
 2) Cd into the directory liri-node-app
 3) run: npm install
-4) run: node liri.j <command> <parameter>  
+4) run: node liri.js `<command> <parameter>`  
 	where valid commands and parameters are:  
 	    my-tweets  
-	    spotify-this-song \'<song name here>\'  
-	    movie-this \'<movie name here>\'  
+	    spotify-this-song `<song name here>`  
+	    movie-this `<movie name here>`  
 	    do-what-it-says  
 
 ## Getting Help
