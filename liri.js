@@ -1,8 +1,9 @@
 require("dotenv").config();
-var keys = require('./keys');
+var keys = require("./keys");
 var Twitter = require("twitter");
 var Spotify = require("node-spotify-api");
 var request = require("request");
+var lineReader = require('line-reader');
 
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
@@ -10,32 +11,53 @@ var client = new Twitter(keys.twitter);
 var command = process.argv[2];
 var parameter = process.argv.slice(3).join(" "); //the slice and join methods allow us to take in parameters without single/double quotes around them
 
-switch(command) {
-    case "my-tweets":
-        getAndDisplayLast20Tweets();
-        break;
-    case "spotify-this-song":
-		//if the user doesn't type a song name, the program will output data for "The Sign" by Ace of Base
-		if (parameter) {
-			getAndDisplaySongInfo(parameter);
-		} else {
-			getAndDisplaySongInfo("The Sign by Ace of Base");
-		}
-        break;
-    case "movie-this":
-	    if (parameter && parameter.trim()) {
-		    getAndDisplayMovieInfo(parameter);
-		} else {
-			//if the user doesn't type a movie name, the program will output data for the movie 'Mr. Nobody.'
-			getAndDisplayMovieInfo("Mr. Nobody.");
-		}
-    	break;
-    default:
-        console.log("ERROR: Please enter a valid command line argument (and parameter)\n"
-        	+ "Valid command line arguments and parameters:\n"
-        	+ "\t my-tweets\n"
-        	+ "\t spotify-this-song '<song name here>'\n"
-        	+ "\t movie-this '<movie name here>'");
+executeLIRI(command, parameter);
+
+function executeLIRI(command, parameter) {
+	switch(command) {
+	    case "my-tweets":
+	        getAndDisplayLast20Tweets();
+	        break;
+	    case "spotify-this-song":
+			//if the user doesn't type a song name, the program will output data for "The Sign" by Ace of Base
+			if (parameter) {
+				getAndDisplaySongInfo(parameter);
+			} else {
+				getAndDisplaySongInfo("The Sign by Ace of Base");
+			}
+	        break;
+	    case "movie-this":
+		    if (parameter && parameter.trim()) {
+			    getAndDisplayMovieInfo(parameter);
+			} else {
+				//if the user doesn't type a movie name, the program will output data for the movie 'Mr. Nobody.'
+				getAndDisplayMovieInfo("Mr. Nobody.");
+			}
+	    	break;
+	    case "do-what-it-says":
+			lineReader.eachLine('random.txt', function(line) {
+				if (line) {
+					var commandParameterArray = line.split(",");
+					// console.log(commandParameterArray);
+					var currentCommand = commandParameterArray[0];
+					var currentParameter = "";
+					if (commandParameterArray[1]) {
+						currentParameter = commandParameterArray[1].replace(/\"/g, "");
+					}
+					console.log("Command to execute: " + currentCommand + " " + currentParameter);
+					executeLIRI(currentCommand, currentParameter);
+				}
+			});	
+	    	break;
+	    default:
+	        console.log("ERROR: Please enter a valid command line argument (and parameter)\n"
+	        	+ "Valid command line arguments and parameters:\n"
+	        	+ "\t my-tweets\n"
+	        	+ "\t spotify-this-song '<song name here>'\n"
+	        	+ "\t movie-this '<movie name here>'\n"
+	        	+ "\t do-what-it-says");
+	}
+	// console.log();
 }
 
 function getAndDisplayMovieInfo(movieName) {
