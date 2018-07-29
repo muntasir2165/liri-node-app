@@ -15,12 +15,11 @@ switch(command) {
         getAndDisplayLast20Tweets();
         break;
     case "spotify-this-song":
-    	console.log("Song:", parameter);
 		//if the user doesn't type a song name, the program will output data for "The Sign" by Ace of Base
 		if (parameter) {
 			getAndDisplaySongInfo(parameter);
 		} else {
-			getAndDisplaySongInfo("The Sign Ace of Base");
+			getAndDisplaySongInfo("The Sign by Ace of Base");
 		}
         break;
     case "movie-this":
@@ -32,11 +31,11 @@ switch(command) {
 		}
     	break;
     default:
-        console.log("ERROR: Please enter a valid command line argument (and parameter)");
-        console.log("Valid command line arguments and parameters:");
-        console.log("\t my-tweets");
-        console.log("\t spotify-this-song '<song name here>'");
-        console.log("\t movie-this '<movie name here>'");
+        console.log("ERROR: Please enter a valid command line argument (and parameter)\n"
+        	+ "Valid command line arguments and parameters:\n"
+        	+ "\t my-tweets\n"
+        	+ "\t spotify-this-song '<song name here>'\n"
+        	+ "\t movie-this '<movie name here>'");
 }
 
 function getAndDisplayMovieInfo(movieName) {
@@ -52,33 +51,31 @@ function getAndDisplayMovieInfo(movieName) {
 	    var movie = JSON.parse(body);
 	    // console.log("movie-----", movie);
 	    if (movie.Error) {
-	    	console.log("Movie searched for:", movieName);
-	    	console.log(movie.Error);
+	    	console.log("Movie searched for:" + movieName + "\n" + movie.Error);
 	    } else {
 		    displayMovieInfo(movie);
 		}
 	  } else {
-	  		console.log("Sorry, invalid request.");
-	        console.log("ERROR:", error);
+	  		console.log("Sorry, invalid request.\n" + "ERROR: " + error);
 	  }
 	});
 }
 
 function displayMovieInfo(movie) {
-	var title = movie.Title;
-	var year = movie.Year;
-	var imdbRating = movie.imdbRating;
-	var rottenPotatoesRating = "Unavailable";
+	var title = movie.Title  || "Information Unavailable";
+	var year = movie.Year  || "Information Unavailable";
+	var imdbRating = movie.imdbRating  || "Information Unavailable";
+	var rottenPotatoesRating = "Information Unavailable";
 	for (var i=0; i<movie.Ratings.length; i++) {
 		if (movie.Ratings[i].Source === "Rotten Tomatoes") {
 			rottenPotatoesRating = movie.Ratings[i].Value;
 			break;
 		}
 	}
-	var country = movie.Country;
-	var language = movie.Language;
-	var plot = movie.Plot;
-	var actors = movie.Actors;
+	var country = movie.Country  || "Information Unavailable";
+	var language = movie.Language  || "Information Unavailable";
+	var plot = movie.Plot  || "Information Unavailable";
+	var actors = movie.Actors  || "Information Unavailable";
 	console.log("Movie:", title);
 	console.log("Year:", year);
 	console.log("IMDB Rating:", imdbRating);
@@ -88,34 +85,30 @@ function displayMovieInfo(movie) {
 	console.log("Actors:", actors);
 }
 
-function getAndDisplaySongInfo(song) {
-	spotify.search({ type: 'track', query: song, limit: 1}, function(error, data) {
+function getAndDisplaySongInfo(songName) {
+	spotify.search({ type: "track", query: songName, limit: 1}, function(error, data) {
 	  if (error) {
-	  	console.log("Sorry, invalid request.");
-	    console.log('ERROR:', error);
+	  	console.log("Sorry, invalid request.\n" + "ERROR: " + error);
 	  } else {
-		// console.log(data); 
-		// console.log("---data.tracks---");
-		// console.log(data.tracks);
-		// console.log("---data.tracks.items[0].artists---");
-		// console.log(data.tracks.items[0].artists);
-		var artists = [];
-		for (var i=0; i <data.tracks.items[0].artists.length; i++) {
-			artists.push(data.tracks.items[0].artists[i].name);
-		}
-		console.log("Artist:", artists.join(" "));
-		// console.log("---song: data.tracks.items[0].name---");
-		console.log("Song:", data.tracks.items[0].name);
-		// console.log("---preview url: data.tracks.items[0].preview_url---");
-		console.log("Preview Url:", data.tracks.items[0].preview_url);
-		// console.log("---album: data.tracks.items[0].album.name---");
-		console.log("Album:", data.tracks.items[0].album.name);
-		// console.log(data.tracks.items[0]);
+		displaySongInfo(data);
 	}
 	});
 }
 
-function displaySongInfo() {}
+function displaySongInfo(songInfo) {
+	var artists = [];
+	for (var i=0; i <songInfo.tracks.items[0].artists.length; i++) {
+		artists.push(songInfo.tracks.items[0].artists[i].name);
+	}
+	var song = songInfo.tracks.items[0].name  || "Information Unavailable";
+	var preview_url = songInfo.tracks.items[0].preview_url || "Information Unavailable";
+	var album = songInfo.tracks.items[0].album.name || "Information Unavailable";
+
+	console.log("Artist:", artists.join(" ") + "\n"
+		+ "Song:" + song + "\n"
+		+ "Preview Url:", preview_url + "\n"
+		+ "Album:", album);
+}
 
 function getAndDisplayLast20Tweets() {
 	/*
@@ -125,21 +118,24 @@ function getAndDisplayLast20Tweets() {
 	*/
 	client.get('statuses/user_timeline', "", function(error, tweets, response) {
 	  if (!error) {
-	    // console.log(tweets);
 	    var last20Tweets =  tweets.slice(0, 20);
 	    displayTweetInfo(last20Tweets);
 	  } else {
-	  	console.log("Sorry, invalid request.");
-        console.log("ERROR:", error);
+	  	console.log("Sorry, invalid request.\n" + "ERROR: " + error);
 	  }
 	});
 }
 
 function displayTweetInfo(tweets) {
+	var name = tweets[0].user.name || "Information Unavailable";
+	var screenName = tweets[0].user.screen_name || "Information Unavailable";
+	console.log("Name:" + name + "\n"
+		+ "Screen Name:", screenName + "\n"
+		+ "---------------------------");
 	tweets.forEach(function(tweet){
-		var tweetText = tweet.text;
-		var tweetTime = tweet.user.created_at;
-	    console.log("Tweet:", tweetText);
-	    console.log("Created at:", tweetTime);
+		var tweetText = tweet.text || "Information Unavailable";
+		var tweetTime = tweet.user.created_at || "Information Unavailable";
+	    console.log("Tweet:", tweetText + "\n"
+	    	+ "Created at:", tweetTime);
 	});
 }
