@@ -14,8 +14,8 @@ This app was developed as part of the first Node.js homework assignment at the U
 4) run: node liri.j <command> <parameter>  
 	where valid commands and parameters are:  
 	    my-tweets  
-	    spotify-this-song '<song name here>' 
-	    movie-this '<movie name here>'  
+	    spotify-this-song \'<song name here>\'  
+	    movie-this \'<movie name here>\'  
 	    do-what-it-says  
 
 ## Getting Help
