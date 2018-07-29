@@ -1,6 +1,6 @@
 # liri-node-app
 
-LIRI (Language Interpretation and Recognition Interface) is a command line node app that takes in parameters and gives you back data
+LIRI (Language Interpretation and Recognition Interface) is a command line node app that takes in parameters and gives you back data about your tweets, queried songs from Spotify and movies from OMDB.
 
 ## Project Motivation
 
