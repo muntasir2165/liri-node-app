@@ -4,6 +4,7 @@ var Twitter = require("twitter");
 var Spotify = require("node-spotify-api");
 var request = require("request");
 var lineReader = require('line-reader');
+var logger = require('tracer').dailyfile({root:'.', maxLogFiles: 10, allLogsFileName: 'LIRI'});
 
 var spotify = new Spotify(keys.spotify);
 var client = new Twitter(keys.twitter);
@@ -45,6 +46,7 @@ function executeLIRI(command, parameter) {
 						currentParameter = commandParameterArray[1].replace(/\"/g, "");
 					}
 					console.log("Command to execute: " + currentCommand + " " + currentParameter);
+					logger.log("Command to execute: " + currentCommand + " " + currentParameter);
 					executeLIRI(currentCommand, currentParameter);
 				}
 			});	
@@ -52,12 +54,17 @@ function executeLIRI(command, parameter) {
 	    default:
 	        console.log("ERROR: Please enter a valid command line argument (and parameter)\n"
 	        	+ "Valid command line arguments and parameters:\n"
-	        	+ "\t my-tweets\n"
-	        	+ "\t spotify-this-song '<song name here>'\n"
-	        	+ "\t movie-this '<movie name here>'\n"
-	        	+ "\t do-what-it-says");
+	        	+ "\tmy-tweets\n"
+	        	+ "\tspotify-this-song '<song name here>'\n"
+	        	+ "\tmovie-this '<movie name here>'\n"
+	        	+ "\tdo-what-it-says");
+	        logger.error("ERROR: Please enter a valid command line argument (and parameter)\n"
+	        	+ "Valid command line arguments and parameters:\n"
+	        	+ "\tmy-tweets\n"
+	        	+ "\tspotify-this-song '<song name here>'\n"
+	        	+ "\tmovie-this '<movie name here>'\n"
+	        	+ "\tdo-what-it-says");
 	}
-	// console.log();
 }
 
 function getAndDisplayMovieInfo(movieName) {
@@ -71,14 +78,15 @@ function getAndDisplayMovieInfo(movieName) {
 	    // Parse the body of the site and recover just the imdbRating
 	    // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
 	    var movie = JSON.parse(body);
-	    // console.log("movie-----", movie);
 	    if (movie.Error) {
 	    	console.log("Movie searched for:" + movieName + "\n" + movie.Error);
+	    	logger.error("Movie searched for:" + movieName + "\n" + movie.Error);
 	    } else {
 		    displayMovieInfo(movie);
 		}
 	  } else {
 	  		console.log("Sorry, invalid request.\n" + "ERROR: " + error);
+	  		logger.error("Sorry, invalid request.\n" + "ERROR: " + error);
 	  }
 	});
 }
@@ -98,22 +106,33 @@ function displayMovieInfo(movie) {
 	var language = movie.Language  || "Information Unavailable";
 	var plot = movie.Plot  || "Information Unavailable";
 	var actors = movie.Actors  || "Information Unavailable";
-	console.log("Movie:", title);
-	console.log("Year:", year);
-	console.log("IMDB Rating:", imdbRating);
-	console.log("Rotten Tomatoes Rating:", rottenPotatoesRating);
-	console.log("Country:", country);
-	console.log("Language:", language);
-	console.log("Actors:", actors);
+	console.log("Movie: ", title + "\n"
+		+ "Year: ", year + "\n"
+		+ "IMDB Rating:", imdbRating + "\n"
+		+ "Rotten Tomatoes Rating: ", rottenPotatoesRating + "\n"
+		+ "Country: ", country + "\n"
+		+ "Language: ", language + "\n"
+		+ "Actors: ", actors);
+
+	logger.log("Movie: ", title + "\n"
+		+ "Year: ", year + "\n"
+		+ "IMDB Rating: ", imdbRating + "\n"
+		+ "Rotten Tomatoes Rating: ", rottenPotatoesRating + "\n"
+		+ "Country: ", country + "\n"
+		+ "Language: ", language + "\n"
+		+ "Actors: ", actors);
 }
 
 function getAndDisplaySongInfo(songName) {
 	spotify.search({ type: "track", query: songName, limit: 1}, function(error, data) {
 	  if (error) {
+	  	console.log("Song searched for: " + songName);
+	  	logger.log("Song searched for: " + songName);
 	  	console.log("Sorry, invalid request.\n" + "ERROR: " + error);
+	  	logger.error("Sorry, invalid request.\n" + "ERROR: " + error);
 	  } else {
-		displaySongInfo(data);
-	}
+			displaySongInfo(data);
+		}
 	});
 }
 
@@ -126,10 +145,15 @@ function displaySongInfo(songInfo) {
 	var preview_url = songInfo.tracks.items[0].preview_url || "Information Unavailable";
 	var album = songInfo.tracks.items[0].album.name || "Information Unavailable";
 
-	console.log("Artist:", artists.join(" ") + "\n"
-		+ "Song:" + song + "\n"
-		+ "Preview Url:", preview_url + "\n"
-		+ "Album:", album);
+	console.log("Artist: " + artists.join(" ") + "\n"
+		+ "Song: " + song + "\n"
+		+ "Preview Url: " + preview_url + "\n"
+		+ "Album: " + album);
+
+	logger.log("Artist: " + artists.join(" ") + "\n"
+		+ "Song: " + song + "\n"
+		+ "Preview Url: " + preview_url + "\n"
+		+ "Album: " + album);
 }
 
 function getAndDisplayLast20Tweets() {
@@ -144,6 +168,7 @@ function getAndDisplayLast20Tweets() {
 	    displayTweetInfo(last20Tweets);
 	  } else {
 	  	console.log("Sorry, invalid request.\n" + "ERROR: " + error);
+	  	logger.error("Sorry, invalid request.\n" + "ERROR: " + error);
 	  }
 	});
 }
@@ -151,13 +176,19 @@ function getAndDisplayLast20Tweets() {
 function displayTweetInfo(tweets) {
 	var name = tweets[0].user.name || "Information Unavailable";
 	var screenName = tweets[0].user.screen_name || "Information Unavailable";
-	console.log("Name:" + name + "\n"
-		+ "Screen Name:", screenName + "\n"
+	console.log("Name: " + name + "\n"
+		+ "Screen Name: ", screenName + "\n"
 		+ "---------------------------");
+	logger.log("Name: " + name + "\n"
+		+ "Screen Name: ", screenName + "\n"
+		+ "---------------------------");
+	
 	tweets.forEach(function(tweet){
 		var tweetText = tweet.text || "Information Unavailable";
 		var tweetTime = tweet.user.created_at || "Information Unavailable";
-	    console.log("Tweet:", tweetText + "\n"
-	    	+ "Created at:", tweetTime);
+	    console.log("Tweet: ", tweetText + "\n"
+	    	+ "Created at: ", tweetTime);
+	    logger.log("Tweet: ", tweetText + "\n"
+	    	+ "Created at: ", tweetTime);
 	});
 }

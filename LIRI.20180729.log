@@ -1,0 +1,105 @@
+2018-07-29T17:26:40-0400 <error> liri.js:62 (executeLIRI) ERROR: Please enter a valid command line argument (and parameter)
+Valid command line arguments and parameters:
+	 my-tweets
+	 spotify-this-song '<song name here>'
+	 movie-this '<movie name here>'
+	 do-what-it-says
+2018-07-29T17:26:45-0400 <log> liri.js:49 () Command to execute: spotify-this-song I Want it That Way
+2018-07-29T17:26:45-0400 <log> liri.js:49 () Command to execute: my-tweets 
+2018-07-29T17:26:45-0400 <log> liri.js:49 () Command to execute: movie-this The Dark Knight
+2018-07-29T17:26:45-0400 <log> liri.js:119 (displayMovieInfo) Movie: The Dark Knight
+Year: 2008
+IMDB Rating: 9.0
+Rotten Tomatoes Rating: 94%
+Country: USA, UK
+Language: English, Mandarin
+Actors: Christian Bale, Heath Ledger, Aaron Eckhart, Michael Caine
+2018-07-29T17:26:45-0400 <log> liri.js:182 (displayTweetInfo) Name:Muntasir Biojid
+Screen Name: MBiojid
+---------------------------
+2018-07-29T17:26:45-0400 <log> liri.js:191 () Tweet: Tweet 4. LIRI app MVP is now done!
+Created at: Sat Jul 28 21:28:34 +0000 2018
+2018-07-29T17:26:45-0400 <log> liri.js:191 () Tweet: tweet 3
+Created at: Sat Jul 28 21:28:34 +0000 2018
+2018-07-29T17:26:45-0400 <log> liri.js:191 () Tweet: tweet 2
+Created at: Sat Jul 28 21:28:34 +0000 2018
+2018-07-29T17:26:45-0400 <log> liri.js:191 () Tweet: tweet 1
+Created at: Sat Jul 28 21:28:34 +0000 2018
+2018-07-29T17:26:46-0400 <log> liri.js:153 (displaySongInfo) Artist: Backstreet Boys
+Song:I Want It That Way
+Preview Url: https://p.scdn.co/mp3-preview/e72a05dc3f69c891e3390c3ceaa77fad02f6b5f6?cid=28cd21b409f440639dd42b83bafb109d
+Album: The Hits--Chapter One
+2018-07-29T17:27:26-0400 <log> liri.js:182 (displayTweetInfo) Name:Muntasir Biojid
+Screen Name: MBiojid
+---------------------------
+2018-07-29T17:27:26-0400 <log> liri.js:191 () Tweet: Tweet 4. LIRI app MVP is now done!
+Created at: Sat Jul 28 21:28:34 +0000 2018
+2018-07-29T17:27:26-0400 <log> liri.js:191 () Tweet: tweet 3
+Created at: Sat Jul 28 21:28:34 +0000 2018
+2018-07-29T17:27:26-0400 <log> liri.js:191 () Tweet: tweet 2
+Created at: Sat Jul 28 21:28:34 +0000 2018
+2018-07-29T17:27:26-0400 <log> liri.js:191 () Tweet: tweet 1
+Created at: Sat Jul 28 21:28:34 +0000 2018
+2018-07-29T17:27:41-0400 <error> liri.js:85 (Request._callback) Movie searched for:asdasd
+Movie not found!
+2018-07-29T17:27:59-0400 <log> liri.js:153 (displaySongInfo) Artist: Céline Dion
+Song:My Heart Will Go On - Love Theme from "Titanic"
+Preview Url: https://p.scdn.co/mp3-preview/5fcdcfe7ef20abd006bba666b4a7dff01dd5ec21?cid=28cd21b409f440639dd42b83bafb109d
+Album: Let's Talk About Love
+2018-07-29T17:28:17-0400 <log> liri.js:153 (displaySongInfo) Artist: Jeremih Ty Dolla $ign
+Song:The Light
+Preview Url: Information Unavailable
+Album: The Light
+2018-07-29T17:28:26-0400 <log> liri.js:153 (displaySongInfo) Artist: Ace of Base
+Song:The Sign
+Preview Url: https://p.scdn.co/mp3-preview/4c463359f67dd3546db7294d236dd0ae991882ff?cid=28cd21b409f440639dd42b83bafb109d
+Album: The Sign (US Album) [Remastered]
+2018-07-29T17:28:30-0400 <log> liri.js:153 (displaySongInfo) Artist: Ace Fail
+Song:By the Exit Sign
+Preview Url: https://p.scdn.co/mp3-preview/09c2ecd7f7fe0b91def66d02d87e2b72c490a4ca?cid=28cd21b409f440639dd42b83bafb109d
+Album: So Much the Better
+2018-07-29T17:29:35-0400 <error> liri.js:132 () Sorry, invalid request.
+ERROR: TypeError: Cannot read property 'artists' of undefined
+2018-07-29T17:31:47-0400 <error> liri.js:130 () Sorry, invalid request.
+ERROR: TypeError: Cannot read property 'artists' of undefined
+2018-07-29T17:32:38-0400 <error> liri.js:130 () Sorry, invalid request.
+ERROR: TypeError: Cannot read property 'artists' of undefined
+2018-07-29T17:33:18-0400 <log> liri.js:152 (displaySongInfo) Artist: Jeremih Ty Dolla $ign
+Song:The Light
+Preview Url: Information Unavailable
+Album: The Light
+2018-07-29T17:33:36-0400 <log> liri.js:151 (displaySongInfo) Artist: Jeremih Ty Dolla $ign
+Song:The Light
+Preview Url: Information Unavailable
+Album: The Light
+2018-07-29T17:33:41-0400 <error> liri.js:130 () Sorry, invalid request.
+ERROR: TypeError: Cannot read property 'artists' of undefined
+2018-07-29T17:34:12-0400 <error> liri.js:130 () Sorry, invalid request.
+ERROR: TypeError: Cannot read property 'artists' of undefined
+2018-07-29T17:34:44-0400 <error> liri.js:130 () Sorry, invalid request.
+ERROR: TypeError: Cannot read property 'artists' of undefined
+2018-07-29T17:35:25-0400 <error> liri.js:130 () Sorry, invalid request.
+ERROR: TypeError: Cannot read property 'artists' of undefined
+2018-07-29T17:36:24-0400 <log> liri.js:130 () Song searched for:adsfa
+2018-07-29T17:36:24-0400 <error> liri.js:132 () Sorry, invalid request.
+ERROR: TypeError: Cannot read property 'artists' of undefined
+2018-07-29T17:36:51-0400 <log> liri.js:153 (displaySongInfo) Artist: Luis Fonsi Daddy Yankee Justin Bieber
+Song:Despacito - Remix
+Preview Url: Information Unavailable
+Album: Despacito Feat. Justin Bieber (Remix)
+2018-07-29T17:37:22-0400 <log> liri.js:153 (displaySongInfo) Artist: DJ Khaled
+Song:All I Do Is Win
+Preview Url: https://p.scdn.co/mp3-preview/dbc1ac4ab90f38293530a751fbf7dc7fcee2b001?cid=28cd21b409f440639dd42b83bafb109d
+Album: Victory
+2018-07-29T17:38:37-0400 <log> liri.js:153 (displaySongInfo) Artist:  DJ Khaled
+Song: All I Do Is Win
+Preview Url:  https://p.scdn.co/mp3-preview/dbc1ac4ab90f38293530a751fbf7dc7fcee2b001?cid=28cd21b409f440639dd42b83bafb109d
+Album:  Victory
+2018-07-29T17:39:02-0400 <log> liri.js:153 (displaySongInfo) Artist:  DJ Khaled
+Song: All I Do Is Win
+Preview Url: https://p.scdn.co/mp3-preview/dbc1ac4ab90f38293530a751fbf7dc7fcee2b001?cid=28cd21b409f440639dd42b83bafb109d
+Album: Victory
+2018-07-29T17:39:13-0400 <log> liri.js:153 (displaySongInfo) Artist: DJ Khaled
+Song: All I Do Is Win
+Preview Url: https://p.scdn.co/mp3-preview/dbc1ac4ab90f38293530a751fbf7dc7fcee2b001?cid=28cd21b409f440639dd42b83bafb109d
+Album: Victory
