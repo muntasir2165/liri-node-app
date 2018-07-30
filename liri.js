@@ -68,7 +68,7 @@ function executeLIRI(command, parameter) {
 }
 
 function getAndDisplayMovieInfo(movieName) {
-	var apiKey = "6de9caba";
+	var apiKey = "trilogy";
 	// run a request to the OMDB API with the movie specified
 	request("http://www.omdbapi.com/?t=" + movieName + "&apikey=" + apiKey , function(error, response, body) {
 
@@ -106,21 +106,23 @@ function displayMovieInfo(movie) {
 	var language = movie.Language  || "Information Unavailable";
 	var plot = movie.Plot  || "Information Unavailable";
 	var actors = movie.Actors  || "Information Unavailable";
-	console.log("Movie: ", title + "\n"
-		+ "Year: ", year + "\n"
-		+ "IMDB Rating:", imdbRating + "\n"
-		+ "Rotten Tomatoes Rating: ", rottenPotatoesRating + "\n"
-		+ "Country: ", country + "\n"
-		+ "Language: ", language + "\n"
-		+ "Actors: ", actors);
+	console.log("Movie: " + title + "\n"
+		+ "Year: " + year + "\n"
+		+ "IMDB Rating:" + imdbRating + "\n"
+		+ "Rotten Tomatoes Rating: " + rottenPotatoesRating + "\n"
+		+ "Country: " + country + "\n"
+		+ "Language: " + language + "\n"
+		+ "Plot: " + plot + "\n"
+		+ "Actors: " + actors);
 
-	logger.log("Movie: ", title + "\n"
-		+ "Year: ", year + "\n"
-		+ "IMDB Rating: ", imdbRating + "\n"
-		+ "Rotten Tomatoes Rating: ", rottenPotatoesRating + "\n"
-		+ "Country: ", country + "\n"
-		+ "Language: ", language + "\n"
-		+ "Actors: ", actors);
+	logger.log("Movie: " + title + "\n"
+		+ "Year: " + year + "\n"
+		+ "IMDB Rating: " + imdbRating + "\n"
+		+ "Rotten Tomatoes Rating: " + rottenPotatoesRating + "\n"
+		+ "Country: " + country + "\n"
+		+ "Language: " + language + "\n"
+		+ "Plot: " + plot + "\n"
+		+ "Actors: " + actors);
 }
 
 function getAndDisplaySongInfo(songName) {
@@ -177,18 +179,18 @@ function displayTweetInfo(tweets) {
 	var name = tweets[0].user.name || "Information Unavailable";
 	var screenName = tweets[0].user.screen_name || "Information Unavailable";
 	console.log("Name: " + name + "\n"
-		+ "Screen Name: ", screenName + "\n"
+		+ "Screen Name: " + screenName + "\n"
 		+ "---------------------------");
 	logger.log("Name: " + name + "\n"
-		+ "Screen Name: ", screenName + "\n"
+		+ "Screen Name: " + screenName + "\n"
 		+ "---------------------------");
 	
 	tweets.forEach(function(tweet){
 		var tweetText = tweet.text || "Information Unavailable";
 		var tweetTime = tweet.user.created_at || "Information Unavailable";
-	    console.log("Tweet: ", tweetText + "\n"
-	    	+ "Created at: ", tweetTime);
-	    logger.log("Tweet: ", tweetText + "\n"
-	    	+ "Created at: ", tweetTime);
+	    console.log("Tweet: " + tweetText + "\n"
+	    	+ "Created at: " + tweetTime);
+	    logger.log("Tweet: " + tweetText + "\n"
+	    	+ "Created at: " + tweetTime);
 	});
 }
